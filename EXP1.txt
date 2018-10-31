@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+void main()
+{
+	int gd=DETECT, gm, i;
+	initgraph(&gd, &gm, "C:\\TurboC3\\BGI");setviewport(0,0,639,440,1);
+	for(i=0;i<420;i++)
+	{
+		rectangle(50+i,100,150+i,300);
+		rectangle(150+i,200,200+i,300);
+		circle(70+i,320,20);
+		circle(130+i,320,20);
+		delay(100);
+		clearviewport();
+	}
+	getch();
+	closegraph();
+}

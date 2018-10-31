@@ -1,0 +1,37 @@
+//2d rotation about arbitrary point
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+
+void main()
+{
+	int gd=DETECT, gm, i,x1,y1,x2,y2,x3,y3,x,y;
+	float angle;
+	initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
+	printf("enter 1st co-ordinate: ");
+	scanf("%d%d", &x1,&y1);
+	printf("enter 2nd co-ordinate: ");
+	scanf("%d%d", &x2,&y2);
+	printf("enter 3rd co-ordinate: ");
+	scanf("%d%d", &x3,&y3);
+	line(x1,y1,x2,y2);
+	line(x2,y2,x3,y3);
+	line(x3,y3,x1,y1);
+	printf("enter rotation angle: ");
+	scanf("%f", &angle);
+	angle=3.14*angle/180;
+	x=x2;
+	y=y2;
+	x1=x+(x1-x)*cos(angle)-(y1-y)*sin(angle);
+	y1=y+(x1-x)*sin(angle)+(y1-y)*cos(angle);
+	x2=x+(x2-x)*cos(angle)-(y2-y)*sin(angle);
+	y2=y+(x2-x)*sin(angle)+(y2-y)*cos(angle);
+	x3=x+(x3-x)*cos(angle)-(y3-y)*sin(angle);
+	y3=y+(x3-x)*sin(angle)+(y3-y)*cos(angle);
+	line(x1,y1,x2,y2);
+	line(x2,y2,x3,y3);
+	line(x3,y3,x1,y1);
+	getch();
+	closegraph();
+}

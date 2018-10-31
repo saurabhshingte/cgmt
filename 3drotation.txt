@@ -1,0 +1,94 @@
+//3d rotation
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+
+void getMultiplicationMatrix(float f, float angle, float result[4][4])
+{
+	int i, j;
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<4;j++)
+		{
+			result[i][j]=0.0f;
+		}
+	}
+	angle=angle*0.0175;
+	result[0][0]=1;
+	result[1][1]=1;
+	result[2][0]=f*cos(angle);
+	result[2][1]=f*sin(angle);
+	result[3][3]=1;
+}
+
+int roundo(float f)
+{
+	if( (f - (int)f) < 0.5)
+		return (int)f;
+	else
+		return (int)f + 1;
+}
+
+void multiplyMatrix(int a[8][4], float b[4][4], int result[8][4])
+{
+	int i,j,k,l;
+	float sum;
+	for(i=0;i<8;i++)
+	{
+		for(j=0;j<4;j++)
+		{
+			sum=0.0f;
+			for(k=0;k<4;k++)
+			{
+				sum=sum + a[i][k]*b[k][j];
+			}
+			result[i][j]=roundo(sum);
+		}
+	}
+}
+
+void drawcube(int a[8][4])
+{
+	line(a[0][0]-100,a[0][1]-100,a[1][0]-100,a[1][1]-100);
+	line(a[1][0]-100,a[1][1]-100,a[3][0]-100,a[3][1]-100);
+	line(a[2][0]-100,a[2][1]-100,a[3][0]-100,a[3][1]-100);
+	line(a[2][0]-100,a[2][1]-100,a[0][0]-100,a[0][1]-100);
+
+	line(a[6][0]-100,a[6][1]-100,a[7][0]-100,a[7][1]-100);
+	line(a[5][0]-100,a[5][1]-100,a[7][0]-100,a[7][1]-100);
+	line(a[1][0]-100,a[1][1]-100,a[5][0]-100,a[5][1]-100);
+	line(a[3][0]-100,a[3][1]-100,a[7][0]-100,a[7][1]-100);
+	line(a[2][0]-100,a[2][1]-100,a[6][0]-100,a[6][1]-100);
+	line(a[4][0]-100,a[4][1]-100,a[6][0]-100,a[6][1]-100);
+	line(a[4][0]-100,a[4][1]-100,a[5][0]-100,a[5][1]-100);
+	line(a[4][0]-100,a[4][1]-100,a[0][0]-100,a[0][1]-100);
+}
+
+void project(int cube[8][4], int angle, float f)
+{
+	float multiplicationMatrix[4][4];
+	float theta = 20*0.0175;
+	int projectedMatrix[8][4], i;
+	getMultiplicationMatrix(f, angle, multiplicationMatrix);
+	multiplyMatrix(cube, multiplicationMatrix, projectedMatrix);
+	for(i=0;i<8;i++)
+	{
+		projectedMatrix[i][0]=projectedMatrix[i][0]*cos(theta) + projectedMatrix[i][1]*sin(theta);
+		projectedMatrix[i][1]=(-1)*projectedMatrix[i][0]*sin(theta) + projectedMatrix[i][1]*cos(theta);
+	}
+	drawcube(projectedMatrix);
+	getch();
+}
+
+void main()
+{
+	int gd=DETECT, gm, c;
+	int cube[8][4]={{200, 200, 200, 1},{200, 300, 200, 1},{300, 200, 200, 1},{300, 300, 200, 1},
+			{200, 200, 300, 1},{200, 300, 300, 1},{300, 200, 300, 1},{300, 300, 300, 1}};
+	float multiplicationMatrix[4][4];
+	initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
+	project(cube, 45, 1.0f);	
+	getch();
+	closegraph();
+}

@@ -1,0 +1,39 @@
+//circle
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>#include<math.h>
+void main()
+{
+	int gd=DETECT, gm,i;    
+	int xc,yc,d,r,x,y;
+	initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
+	printf("ENTER center coordinates x and y: ");
+	scanf("%d%d", &xc, &yc);
+	printf("\nenter radius: ");
+	scanf("%d", &r);
+	d=3-2*r;
+	x=0;
+	y=r;
+	while(x<=y)
+	{
+		putpixel(xc+x,yc+y,5);
+		putpixel(xc+x,yc-y,6);
+		putpixel(xc-x,yc+y,4);
+		putpixel(xc-x,yc-y,7);
+		putpixel(xc+y,yc+x,5);
+		putpixel(xc+y,yc-x,6);
+		putpixel(xc-y,yc+x,4);
+		putpixel(xc-y,yc-x,7);
+		if(d<=0)
+			d=d+4*x+6;
+		else
+		{
+			d=d+4*(x-y)+10;
+			y=y-1;
+		}
+		x=x+1;
+		delay(100);
+	}
+	getch();
+	closegraph();
+}

@@ -1,0 +1,33 @@
+//2d translation
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+
+void main()
+{
+	int gd=DETECT, gm, i,x1,y1,x2,y2,x3,y3,tx,ty;
+	initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
+	printf("enter 1st co-ordinate: ");
+	scanf("%d%d", &x1,&y1);
+	printf("enter 2nd co-ordinate: ");
+	scanf("%d%d", &x2,&y2);
+	printf("enter 3rd co-ordinate: ");
+	scanf("%d%d", &x3,&y3);
+	line(x1,y1,x2,y2);
+	line(x2,y2,x3,y3);
+	line(x3,y3,x1,y1);
+	printf("enter translation factor: ");
+	scanf("%d%d", &tx,&ty);
+	x1=tx+x1;
+	y1=ty+y1;
+	x2=tx+x2;
+	y2=ty+y2;
+	x3=tx+x3;
+	y3=ty+y3;
+	line(x1,y1,x2,y2);
+	line(x2,y2,x3,y3);
+	line(x3,y3,x1,y1);
+	getch();
+	closegraph();
+}
